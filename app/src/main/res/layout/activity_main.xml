@@ -58,11 +58,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/button_design"
+                android:padding="15dp"
                 android:text="@string/loginLbl"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/loginTxtColor"
                 android:textStyle="bold"
-                app:backgroundTint="@color/white" />
+                app:backgroundTint="#C61E1E"
+                app:backgroundTintMode="add" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,16 +76,18 @@
                 />
 
             <Button
+                android:id="@+id/registerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/button_design"
                 android:text="@string/registerTxt"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/loginTxtColor"
                 android:textStyle="bold"
-                app:backgroundTint="@color/white"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:id="@+id/registerBtn"
-                />
+                android:padding="15dp"
+                app:backgroundTint="#A31818"
+                app:backgroundTintMode="add" />
         </LinearLayout>
     </ScrollView>
 
