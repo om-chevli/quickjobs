@@ -63,6 +63,7 @@
                 android:textColor="@color/loginTxtColor"
                 android:textStyle="bold"
                 app:backgroundTint="@color/white" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
                 android:textAppearance="?android:textAppearanceLarge"
                 android:gravity="center"
                 />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
