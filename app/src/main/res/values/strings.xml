@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Quick Jobs</string>
+    <string name="log_in">Log In</string>
+    <string name="emailTxt">Email</string>
+    <string name="passwordTxt">Password</string>
+    <string name="loginLbl">Login</string>
+    <string name="orTxt">OR</string>
+    <string name="registerTxt">Register</string>
+</resources>
