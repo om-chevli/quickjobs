@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "838994772504",
+    "project_id": "quick-jobs-android-native",
+    "storage_bucket": "quick-jobs-android-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838994772504:android:007925ed6d8d605b7bf96d",
+        "android_client_info": {
+          "package_name": "com.example.quickjobs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838994772504-e6j0b5c0ibjrn90krphmjr5i2d7m187j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quickjobs",
+            "certificate_hash": "0c12540fd7858e3e87f2f872e88f940cea367b5b"
+          }
+        },
+        {
+          "client_id": "838994772504-6tvsva9h40gh1mij8lbpvbhbmq3t50f1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE7ilrjTrGVNNBv52akMleGBSOsCBBgLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838994772504-6tvsva9h40gh1mij8lbpvbhbmq3t50f1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
