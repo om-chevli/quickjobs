@@ -23,14 +23,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/log_in"
+                android:text="@string/registrationTxt"
                 android:textColor="@color/loginTxtColor"
                 android:textSize="35sp"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/login_email"
+                android:id="@+id/registration_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -42,7 +42,7 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/login_password"
+                android:id="@+id/registration_password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,8 +53,42 @@
                 android:hint="@string/passwordTxt"
                 android:textColorHint="@color/white" />
 
+            <EditText
+                android:id="@+id/confirm_password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:background="@drawable/edit_design"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                android:hint="@string/confirm_password"
+                android:textColorHint="@color/white" />
+
             <Button
-                android:id="@+id/loginUserBtn"
+                android:id="@+id/registerUserBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_design"
+                android:text="@string/registerTxt"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/loginTxtColor"
+                android:textStyle="bold"
+                android:padding="15dp"
+                app:backgroundTint="#A31818"
+                app:backgroundTintMode="add" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/orTxt"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"
+                />
+
+            <Button
+                android:id="@+id/loginBackButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -67,27 +101,7 @@
                 app:backgroundTint="#C61E1E"
                 app:backgroundTintMode="add" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/orTxt"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:gravity="center"
-                />
 
-            <Button
-                android:id="@+id/registerBackBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/button_design"
-                android:text="@string/registerTxt"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@color/loginTxtColor"
-                android:textStyle="bold"
-                android:padding="15dp"
-                app:backgroundTint="#A31818"
-                app:backgroundTintMode="add" />
         </LinearLayout>
     </ScrollView>
 
