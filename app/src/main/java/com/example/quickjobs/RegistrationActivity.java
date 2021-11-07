@@ -3,6 +3,7 @@ package com.example.quickjobs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,11 +30,15 @@ public class RegistrationActivity extends AppCompatActivity {
     //Authentication
     private FirebaseAuth mAuth;
 
+    //Progress Dialog
+    private ProgressDialog mDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         mAuth=FirebaseAuth.getInstance();
+        mDialog= new ProgressDialog(this);
         registerUser();
     }
 
@@ -64,14 +69,21 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(!Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()){
                     email.setError("Invalid Email!");
                 }
-
+                if(passTxt.length()<=6){
+                    password.setError("Password length should be greater then 6 characters");
+                }
+                mDialog.setMessage("Registering your account...");
+                mDialog.show();
                 mAuth.createUserWithEmailAndPassword(emailTxt,passTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+                            mDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+
                         }else{
+                            mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"unsuccessful",Toast.LENGTH_LONG).show();
                         }
                     }
