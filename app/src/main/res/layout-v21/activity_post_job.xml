@@ -21,6 +21,8 @@
             android:layout_marginBottom="25dp"
             android:layout_marginEnd="25dp"
             app:fabSize="normal"
+            android:src="@drawable/add"
+            android:contentDescription="add"
             android:backgroundTint="@color/fabColor"
             android:id="@+id/fab_add"
             />

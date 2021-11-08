@@ -1,14 +1,19 @@
 package com.example.quickjobs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -41,24 +46,28 @@ public class FabAddJobActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fab_add_job);
         toolbar=findViewById(R.id.toolbar_fab_add_job);
+
+        //ToolBar/Appbar Settings
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Post A Job");
+        //Firebase
         mAuth= FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        assert mUser != null;
-        String uId = mUser.getUid();
-        mJobPost = FirebaseDatabase.getInstance().getReference().child("Job Post").child(uId);
+        FirebaseUser mUser = mAuth.getCurrentUser(); //get current user
+        assert mUser != null; //assertion for null check
+        String uId = mUser.getUid(); //user firebase id
+        mJobPost = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Job Post").child(uId);
 
         postJobToServer();
     }
 
+    //Posts Job to firebase database
     private void postJobToServer(){
         job_title=findViewById(R.id.job_title);
         job_desc=findViewById(R.id.job_desp);
         job_skills=findViewById(R.id.job_skill);
         job_salary =findViewById(R.id.job_salary);
-        postJobBtn=findViewById(R.id.postJobBtn);
+        postJobBtn=findViewById(R.id.jobPostBtn);
 
         postJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,13 +91,24 @@ public class FabAddJobActivity extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(salary)){
                     job_salary.setError("Required Field!");
+                    return;
                 }
 
-                String id = mJobPost.push().getKey();
+                String id = mJobPost.push().getKey(); //db key
                 String date = DateFormat.getDateInstance().format(new Date());
                 JobDetails details = new JobDetails(title,desc,skills,salary,id,date);
-
-                mJobPost.child(id).setValue(details);
+                assert id != null;
+                mJobPost.child(id).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), PostJobActivity.class));
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });//posting JobDetail object
 
 
             }

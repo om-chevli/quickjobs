@@ -27,6 +27,7 @@
             android:textAppearance="?android:textAppearanceLarge"
             android:textStyle="bold" />
 
+
         <Button
             android:id="@+id/allJobsBtn"
             android:layout_width="match_parent"
@@ -37,6 +38,8 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/loginTxtColor"
             android:textStyle="bold"
+            app:backgroundTint="#C61E1E"
+            android:padding="15dp"
             app:backgroundTintMode="add" />
 
         <Button
@@ -49,6 +52,8 @@
             android:text="@string/post_a_job"
             android:textColor="@color/loginTxtColor"
             android:textStyle="bold"
+            app:backgroundTint="#C61E1E"
+            android:padding="15dp"
             android:textAppearance="?android:textAppearanceMedium"
             app:backgroundTintMode="add" />
 
