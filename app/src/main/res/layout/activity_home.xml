@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_color"
     tools:context=".HomeActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/toolbar" android:id="@+id/toolbar_home"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/welcome_msg"
+            android:textColor="@color/browser_actions_bg_grey"
+            android:textSize="30sp"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/allJobsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_design"
+            android:text="@string/see_all_job_posts"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/loginTxtColor"
+            android:textStyle="bold"
+            app:backgroundTintMode="add" />
+
+        <Button
+            android:id="@+id/postJobBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_design"
+            android:text="@string/post_a_job"
+            android:textColor="@color/loginTxtColor"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium"
+            app:backgroundTintMode="add" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

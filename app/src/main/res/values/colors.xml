@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="newColor">#E36767</color>
     <color name="loginTxtColor">#000C51</color>
+    <color name="fabColor">#7486EA</color>
 </resources>

@@ -8,4 +8,7 @@
     <string name="registerTxt">Register</string>
     <string name="registrationTxt">Registration</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="see_all_job_posts">See All Job Posts</string>
+    <string name="post_a_job">Post A Job</string>
+    <string name="welcome_msg">Welcome To Quick Jobs!</string>
 </resources>
