@@ -39,7 +39,8 @@ public class FabAddJobActivity extends AppCompatActivity {
 
     //Firebase
     private FirebaseAuth mAuth;
-    private DatabaseReference mJobPost;
+    private DatabaseReference jobPostsDb;
+    private DatabaseReference usersDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class FabAddJobActivity extends AppCompatActivity {
         FirebaseUser mUser = mAuth.getCurrentUser(); //get current user
         assert mUser != null; //assertion for null check
         String uId = mUser.getUid(); //user firebase id
-        mJobPost = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Post").child(uId);
+        jobPostsDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Posts");
+        usersDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Users").child(uId);
 
         postJobToServer();
     }
@@ -94,11 +96,11 @@ public class FabAddJobActivity extends AppCompatActivity {
                     return;
                 }
 
-                String id = mJobPost.push().getKey(); //db key
+                String id = jobPostsDb.push().getKey(); //db key
                 String date = DateFormat.getDateInstance().format(new Date());
                 JobDetails details = new JobDetails(title,desc,skills,salary,id,date);
                 assert id != null;
-                mJobPost.child(id).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
+                jobPostsDb.child(id).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
@@ -109,7 +111,7 @@ public class FabAddJobActivity extends AppCompatActivity {
                         }
                     }
                 });//posting JobDetail object
-
+                usersDb.child(id).setValue("");
 
             }
         });

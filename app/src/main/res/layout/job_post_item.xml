@@ -2,10 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="5dp"
-    android:layout_margin="10dp"
+    app:cardElevation="15dp"
+    android:layout_margin="18dp"
     android:elevation="5dp"
-    android:padding="5dp"
+    app:cardCornerRadius="12dp"
+    android:padding="8dp"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/job_title"
+            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/black"
             android:padding="10dp"
@@ -27,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="6 November, 2021"
             android:padding="10dp"
+            android:textStyle="italic"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/lightGrey"
             android:id="@+id/job_post_date"
@@ -59,8 +62,9 @@
             android:layout_height="wrap_content"
             android:text="Salary"
             android:padding="10dp"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold"
             android:id="@+id/job_salary_display"
             />
     </LinearLayout>

@@ -4,20 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
-    android:gravity="center"
-    tools:context=".PostJobActivity">
+    tools:context=".ViewJobsActivity">
 
-    <TextView
+    <include layout="@layout/toolbar" android:id="@+id/view_jobs_toolbar"/>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/see_all_job_posts"
-        android:textColor="@color/loginTxtColor"
-        android:textSize="30sp"
-        android:layout_marginBottom="20dp"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold" />
+        android:id="@+id/all_jobs_recycler"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
