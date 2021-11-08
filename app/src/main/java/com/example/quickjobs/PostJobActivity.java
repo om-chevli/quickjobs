@@ -1,5 +1,6 @@
 package com.example.quickjobs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,18 +8,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Models.JobDetails;
+
 public class PostJobActivity extends AppCompatActivity {
 
     private FloatingActionButton addBtn;
     private RecyclerView jobIdRecycler;
+    private Toolbar toolbar;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -30,11 +37,16 @@ public class PostJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_job);
         addBtn=findViewById(R.id.fab_add);
 
+        toolbar=findViewById(R.id.toolbar_post_job);
+        setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setTitle("Your Jobs");
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
         String uId = mUser.getUid();
 
-        jobPostDb = FirebaseDatabase.getInstance().getReference().child("Job Post").child(uId);
+        jobPostDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Post").child(uId);
 
         jobIdRecycler=findViewById(R.id.job_post_id_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -54,6 +66,24 @@ public class PostJobActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        FirebaseRecyclerAdapter<JobDetails,MyViewHolder> adapter = new FirebaseRecyclerAdapter<JobDetails, MyViewHolder>(
+                JobDetails.class,
+                R.layout.job_post_item,
+                MyViewHolder.class,
+                jobPostDb
+        ) {
+            @Override
+            protected void populateViewHolder(MyViewHolder viewHolder, JobDetails model, int position) {
+                viewHolder.setJobTitle(model.getTitle());
+                viewHolder.setJobDate(model.getDate());
+                viewHolder.setJobDesc(model.getDescription());
+                viewHolder.setJobSkills(model.getSkills());
+                viewHolder.setJobSalary(model.getSalary());
+            }
+        };
+
+        jobIdRecycler.setAdapter(adapter);
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{

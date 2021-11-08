@@ -15,4 +15,5 @@
     <string name="job_description">Job Description</string>
     <string name="skill">Skill</string>
     <string name="salary">Salary</string>
+    <string name="db_url">https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </resources>

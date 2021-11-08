@@ -56,7 +56,7 @@ public class FabAddJobActivity extends AppCompatActivity {
         FirebaseUser mUser = mAuth.getCurrentUser(); //get current user
         assert mUser != null; //assertion for null check
         String uId = mUser.getUid(); //user firebase id
-        mJobPost = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Job Post").child(uId);
+        mJobPost = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Post").child(uId);
 
         postJobToServer();
     }
