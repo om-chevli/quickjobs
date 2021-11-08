@@ -9,6 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import Models.JobDetails;
+
 public class FabAddJobActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -22,6 +32,10 @@ public class FabAddJobActivity extends AppCompatActivity {
     //Post Button
     private Button postJobBtn;
 
+    //Firebase
+    private FirebaseAuth mAuth;
+    private DatabaseReference mJobPost;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +44,12 @@ public class FabAddJobActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Post A Job");
+        mAuth= FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        assert mUser != null;
+        String uId = mUser.getUid();
+        mJobPost = FirebaseDatabase.getInstance().getReference().child("Job Post").child(uId);
+
         postJobToServer();
     }
 
@@ -63,6 +83,12 @@ public class FabAddJobActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(salary)){
                     job_salary.setError("Required Field!");
                 }
+
+                String id = mJobPost.push().getKey();
+                String date = DateFormat.getDateInstance().format(new Date());
+                JobDetails details = new JobDetails(title,desc,skills,salary,id,date);
+
+                mJobPost.child(id).setValue(details);
 
 
             }
