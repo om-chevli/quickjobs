@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toolbar;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,5 +49,45 @@ public class PostJobActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),FabAddJobActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public static class MyViewHolder extends  RecyclerView.ViewHolder{
+
+        View myView;
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            myView=itemView;
+        }
+
+        public void setJobTitle(String title){
+            TextView jTitle = myView.findViewById(R.id.job_title_display);
+            jTitle.setText(title);
+        }
+
+        public void setJobDate(String date){
+            TextView jDate= myView.findViewById(R.id.job_post_date);
+            jDate.setText(date);
+        }
+
+        public void setJobDesc(String desc){
+            TextView jDesc= myView.findViewById(R.id.job_desc_display);
+            jDesc.setText(desc);
+        }
+
+        public void setJobSkills(String skills){
+            TextView jSkills= myView.findViewById(R.id.job_skill_display);
+            jSkills.setText(skills);
+        }
+
+        public void setJobSalary(String salary){
+            TextView jSalary= myView.findViewById(R.id.job_salary_display);
+            jSalary.setText(salary);
+        }
+
     }
 }
