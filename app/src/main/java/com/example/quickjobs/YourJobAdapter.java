@@ -26,7 +26,7 @@ public class YourJobAdapter extends RecyclerView.Adapter<YourJobAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_post_item,parent);
+       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_post_item,parent,false);
        return new ViewHolder(v);
     }
 

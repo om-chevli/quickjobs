@@ -24,7 +24,7 @@ import java.util.Date;
 
 import Models.JobDetails;
 
-public class FabAddJobActivity extends AppCompatActivity {
+public class AddJobActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 

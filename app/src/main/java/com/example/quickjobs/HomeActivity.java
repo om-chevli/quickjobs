@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         seeAllJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ViewJobsActivity.class));
+                startActivity(new Intent(getApplicationContext(), AllJobsActivity.class));
             }
         });
     }

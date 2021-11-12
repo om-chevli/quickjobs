@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import Models.JobDetails;
 
-public class ViewJobsActivity extends AppCompatActivity {
+public class AllJobsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView allJobsRecycler;
@@ -38,7 +38,7 @@ public class ViewJobsActivity extends AppCompatActivity {
         allJobs.keepSynced(true);
 
         //Recycler View
-        allJobsRecycler=findViewById(R.id.all_jobs_recycler);
+        allJobsRecycler = findViewById(R.id.all_jobs_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
@@ -51,14 +51,14 @@ public class ViewJobsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<JobDetails, PostJobActivity.MyViewHolder> adapter = new FirebaseRecyclerAdapter<JobDetails, PostJobActivity.MyViewHolder>(
+        FirebaseRecyclerAdapter<JobDetails, CustomViewHolder> adapter = new FirebaseRecyclerAdapter<JobDetails, CustomViewHolder>(
                 JobDetails.class,
                 R.layout.job_post_item,
-                PostJobActivity.MyViewHolder.class,
+                CustomViewHolder.class,
                 allJobs
         ) {
             @Override
-            protected void populateViewHolder(PostJobActivity.MyViewHolder viewHolder, JobDetails model, int position) {
+            protected void populateViewHolder(CustomViewHolder viewHolder, JobDetails model, int position) {
                 viewHolder.setJobTitle(model.getTitle());
                 viewHolder.setJobDate(model.getDate());
                 viewHolder.setJobDesc(model.getDescription());
@@ -70,36 +70,37 @@ public class ViewJobsActivity extends AppCompatActivity {
         allJobsRecycler.setAdapter(adapter);
     }
 
-    public static class MyViewHolder extends  RecyclerView.ViewHolder{
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         View myView;
-        public MyViewHolder(View itemView) {
+
+        public CustomViewHolder(View itemView) {
             super(itemView);
-            myView=itemView;
+            myView = itemView;
         }
 
-        public void setJobTitle(String title){
+        public void setJobTitle(String title) {
             TextView jTitle = myView.findViewById(R.id.job_title_display);
             jTitle.setText(title);
         }
 
-        public void setJobDate(String date){
-            TextView jDate= myView.findViewById(R.id.job_post_date);
+        public void setJobDate(String date) {
+            TextView jDate = myView.findViewById(R.id.job_post_date);
             jDate.setText(date);
         }
 
-        public void setJobDesc(String desc){
-            TextView jDesc= myView.findViewById(R.id.job_desc_display);
+        public void setJobDesc(String desc) {
+            TextView jDesc = myView.findViewById(R.id.job_desc_display);
             jDesc.setText(desc);
         }
 
-        public void setJobSkills(String skills){
-            TextView jSkills= myView.findViewById(R.id.job_skill_display);
+        public void setJobSkills(String skills) {
+            TextView jSkills = myView.findViewById(R.id.job_skill_display);
             jSkills.setText(skills);
         }
 
-        public void setJobSalary(String salary){
-            TextView jSalary= myView.findViewById(R.id.job_salary_display);
+        public void setJobSalary(String salary) {
+            TextView jSalary = myView.findViewById(R.id.job_salary_display);
             jSalary.setText(salary);
         }
 

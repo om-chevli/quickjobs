@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
-        <activity android:name=".FabAddJobActivity"/>
-        <activity android:name=".ViewJobsActivity" />
+        <activity android:name=".AddJobActivity"/>
+        <activity android:name=".AllJobsActivity" />
         <activity android:name=".PostJobActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegistrationActivity" />

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -34,12 +33,15 @@ public class PostJobActivity extends AppCompatActivity {
 
     private FloatingActionButton addBtn;
     private RecyclerView jobIdRecycler;
+    private RecyclerView.Adapter adapter;
     private Toolbar toolbar;
 
     //Firebase
     private FirebaseAuth mAuth;
     private DatabaseReference usersDb;
     private DatabaseReference jobPostsDb;
+
+    List<JobDetails> jobDetailsList = new ArrayList<JobDetails>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,28 +62,47 @@ public class PostJobActivity extends AppCompatActivity {
         jobPostsDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Posts");
         usersDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Users").child(uId);
 
+        adapter = new YourJobAdapter(jobDetailsList, this);
+
+        jobIdRecycler = findViewById(R.id.job_post_id_recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        jobIdRecycler.setHasFixedSize(true);
+        jobIdRecycler.setLayoutManager(layoutManager);
+        jobIdRecycler.setAdapter(adapter);
+
+        getUserJobs();
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddJobActivity.class));
+            }
+        });
+    }
+
+
+    private void getUserJobs() {
         List<String> jobIds = new ArrayList<String>();
-        List<JobDetails> jobDetailsList = new ArrayList<JobDetails>();
-
-
+        //Add User Posted Jobs
         usersDb.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 snapshot.getChildren().forEach(new Consumer<DataSnapshot>() {
                     @Override
                     public void accept(DataSnapshot dataSnapshot) {
                         String id = dataSnapshot.getKey();
                         jobIds.add(id);
                         assert id != null;
-                        System.out.println("jhbsfd:- "+id);
                         jobPostsDb.child(id).addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            synchronized public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String json = new Gson().toJson(snapshot.getValue());
-                                JobDetails jobDetails= new Gson().fromJson(json, JobDetails.class);
+                                JobDetails jobDetails = new Gson().fromJson(json, JobDetails.class);
                                 jobDetailsList.add(jobDetails);
+                                adapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -91,7 +112,6 @@ public class PostJobActivity extends AppCompatActivity {
                         });
                     }
                 });
-
             }
 
             @Override
@@ -99,81 +119,5 @@ public class PostJobActivity extends AppCompatActivity {
                 System.out.println("Canceled");
             }
         });
-
-
-
-
-        jobIdRecycler = findViewById(R.id.job_post_id_recycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
-        jobIdRecycler.setHasFixedSize(true);
-        jobIdRecycler.setLayoutManager(layoutManager);
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FabAddJobActivity.class));
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-//        FirebaseRecyclerAdapter<JobDetails,MyViewHolder> adapter = new FirebaseRecyclerAdapter<JobDetails, MyViewHolder>(
-//                JobDetails.class,
-//                R.layout.job_post_item,
-//                MyViewHolder.class,
-//                jobPostDb
-//        ) {
-//            @Override
-//            protected void populateViewHolder(MyViewHolder viewHolder, JobDetails model, int position) {
-//                viewHolder.setJobTitle(model.getTitle());
-//                viewHolder.setJobDate(model.getDate());
-//                viewHolder.setJobDesc(model.getDescription());
-//                viewHolder.setJobSkills(model.getSkills());
-//                viewHolder.setJobSalary(model.getSalary());
-//            }
-//        };
-//
-//        jobIdRecycler.setAdapter(adapter);
-    }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        View myView;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            myView = itemView;
-        }
-
-        public void setJobTitle(String title) {
-            TextView jTitle = myView.findViewById(R.id.job_title_display);
-            jTitle.setText(title);
-        }
-
-        public void setJobDate(String date) {
-            TextView jDate = myView.findViewById(R.id.job_post_date);
-            jDate.setText(date);
-        }
-
-        public void setJobDesc(String desc) {
-            TextView jDesc = myView.findViewById(R.id.job_desc_display);
-            jDesc.setText(desc);
-        }
-
-        public void setJobSkills(String skills) {
-            TextView jSkills = myView.findViewById(R.id.job_skill_display);
-            jSkills.setText(skills);
-        }
-
-        public void setJobSalary(String salary) {
-            TextView jSalary = myView.findViewById(R.id.job_salary_display);
-            jSalary.setText(salary);
-        }
-
     }
 }

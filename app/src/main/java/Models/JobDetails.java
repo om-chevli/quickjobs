@@ -8,7 +8,8 @@ public class JobDetails {
     String id;
     String date;
 
-    public JobDetails(){}
+    public JobDetails() {
+    }
 
     public JobDetails(String title, String description, String skills, String salary, String id, String date) {
         this.title = title;
