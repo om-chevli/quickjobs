@@ -1,9 +1,12 @@
 package com.example.quickjobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +28,11 @@ public class AllJobsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView allJobsRecycler;
     private TextView notFound;
+    private Button applyForJobBtn;
+    private ProgressBar progressBar;
 
     //Firebase
     private DatabaseReference allJobs;
-    private ProgressBar progressBar;
 
 
     @Override
@@ -38,6 +42,7 @@ public class AllJobsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.view_jobs_toolbar);
         progressBar = findViewById(R.id.all_jobs_progressbar);
         notFound = findViewById(R.id.no_posts_available);
+        applyForJobBtn = findViewById(R.id.applyJobBtn);
 
         //Toolbar
         setSupportActionBar(toolbar);
@@ -62,7 +67,6 @@ public class AllJobsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -85,6 +89,9 @@ public class AllJobsActivity extends AppCompatActivity {
                 CustomViewHolder.class,
                 allJobs
         ) {
+            String jobTitle;
+            String receiverEmail;
+
             @Override
             protected void populateViewHolder(CustomViewHolder viewHolder, JobDetails model, int position) {
                 viewHolder.setJobTitle(model.getTitle());
@@ -92,6 +99,23 @@ public class AllJobsActivity extends AppCompatActivity {
                 viewHolder.setJobDesc(model.getDescription());
                 viewHolder.setJobSkills(model.getSkills());
                 viewHolder.setJobSalary(model.getSalary());
+                applyForJobBtn = viewHolder.myView.findViewById(R.id.applyJobBtn);
+                applyForJobBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String subjectLine = "Apply For " + jobTitle + " position";
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("message/rfc822");
+                        i.putExtra(Intent.EXTRA_EMAIL, new String[]{receiverEmail});
+                        i.putExtra(Intent.EXTRA_SUBJECT, subjectLine);
+                        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_body));
+                        try {
+                            startActivity(Intent.createChooser(i, "Send mail..."));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getApplicationContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         };
         allJobsRecycler.setAdapter(adapter);

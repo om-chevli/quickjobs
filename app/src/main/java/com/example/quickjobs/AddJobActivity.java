@@ -46,7 +46,7 @@ public class AddJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_job);
-        toolbar=findViewById(R.id.toolbar_fab_add_job);
+        toolbar = findViewById(R.id.toolbar_fab_add_job);
 
         //ToolBar/Appbar Settings
         setSupportActionBar(toolbar);
@@ -56,7 +56,7 @@ public class AddJobActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Firebase
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser(); //get current user
         assert mUser != null; //assertion for null check
         String uId = mUser.getUid(); //user firebase id
@@ -82,35 +82,36 @@ public class AddJobActivity extends AppCompatActivity {
                 String skills = job_skills.getText().toString().trim();
                 String salary = job_salary.getText().toString().trim();
 
-                if(TextUtils.isEmpty(title)){
+                if (TextUtils.isEmpty(title)) {
                     job_title.setError("Required Field!");
                     return;
                 }
-                if(TextUtils.isEmpty(desc)){
+                if (TextUtils.isEmpty(desc)) {
                     job_desc.setError("Required Field!");
                     return;
                 }
-                if(TextUtils.isEmpty(skills)){
+                if (TextUtils.isEmpty(skills)) {
                     job_skills.setError("Required Field!");
                     return;
                 }
-                if(TextUtils.isEmpty(salary)){
+                if (TextUtils.isEmpty(salary)) {
                     job_salary.setError("Required Field!");
                     return;
                 }
 
                 String id = jobPostsDb.push().getKey(); //db key
                 String date = DateFormat.getDateInstance().format(new Date());
-                JobDetails details = new JobDetails(title,desc,skills,salary,id,date);
+                String email = mAuth.getCurrentUser().getEmail();
+                JobDetails details = new JobDetails(title, desc, skills, salary, id, date, email);
                 assert id != null;
                 jobPostsDb.child(id).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), PostJobActivity.class));
-                        }else{
-                            Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_LONG).show();
                         }
                     }
                 });//posting JobDetail object

@@ -48,6 +48,7 @@ public class EditJobActivity extends AppCompatActivity {
     public String skills;
     public String salary;
     public String jobId;
+    public String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class EditJobActivity extends AppCompatActivity {
         skills = intent.getStringExtra("skills");
         salary = intent.getStringExtra("salary");
         jobId = intent.getStringExtra("jobId");
+        email = intent.getStringExtra("email");
     }
 
     private void setDetailsFromIntent() {
@@ -127,7 +129,7 @@ public class EditJobActivity extends AppCompatActivity {
                 skills = job_skills.getText().toString().trim();
                 salary = job_salary.getText().toString().trim();
 
-                Map<String, Object> details = new JobDetails(title, desc, skills, salary, jobId, date).toMap();
+                Map<String, Object> details = new JobDetails(title, desc, skills, salary, jobId, date, email).toMap();
                 jobPostsDb.child(jobId).updateChildren(details).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

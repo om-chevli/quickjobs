@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".EditJobActivity"
             android:parentActivityName=".PostJobActivity" />
         <activity

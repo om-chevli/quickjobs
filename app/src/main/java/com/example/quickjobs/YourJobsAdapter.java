@@ -57,6 +57,7 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
                 intent.putExtra("skills", listItem.getSkills());
                 intent.putExtra("salary", listItem.getSalary());
                 intent.putExtra("jobId", listItem.getId());
+                intent.putExtra("email", listItem.getEmail());
                 context.startActivity(intent);
             }
         });
