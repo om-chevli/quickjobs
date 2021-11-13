@@ -6,4 +6,14 @@
     <string name="loginLbl">Login</string>
     <string name="orTxt">OR</string>
     <string name="registerTxt">Register</string>
+    <string name="registrationTxt">Registration</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="see_all_job_posts">See All Job Posts</string>
+    <string name="post_a_job">Post A Job</string>
+    <string name="welcome_msg">Welcome To Quick Jobs!</string>
+    <string name="job_title">Job Title</string>
+    <string name="job_description">Job Description</string>
+    <string name="skill">Skill</string>
+    <string name="salary">Salary</string>
+    <string name="db_url">https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </resources>

@@ -18,10 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private EditText email;
     private  EditText password;
+    private  EditText confirmPassword;
 
     private Button loginBtn;
     private Button registerBtn;
@@ -35,47 +36,52 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registration);
         mAuth=FirebaseAuth.getInstance();
         mDialog= new ProgressDialog(this);
-        loginUser();
+        registerUser();
     }
 
-    private void loginUser(){
-        email=findViewById(R.id.login_email);
-        password=findViewById(R.id.login_password);
+    private void registerUser(){
+        email=findViewById(R.id.registration_email);
+        password=findViewById(R.id.registration_password);
+        confirmPassword=findViewById(R.id.confirm_password);
 
-        loginBtn = findViewById(R.id.loginUserBtn);
-        registerBtn = findViewById(R.id.registerBackBtn);
+        loginBtn = findViewById(R.id.loginBackButton);
+        registerBtn = findViewById(R.id.registerUserBtn);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String emailTxt = email.getText().toString().trim();
                 String passTxt = password.getText().toString().trim();
+                String confirmPass = confirmPassword.getText().toString().trim();
+
                 if(TextUtils.isEmpty(emailTxt)){
                     email.setError("Required Field!");
-                    return;
                 }
                 if(TextUtils.isEmpty(passTxt)){
                     password.setError("Required Field!");
-                    return;
+                }
+                if(!passTxt.equals(confirmPass)){
+                    confirmPassword.setError("Password Mismatch!");
                 }
                 if(!Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()){
                     email.setError("Invalid Email!");
-                    return;
                 }
-
-                mDialog.setMessage("Logging You In...");
+                if(passTxt.length()<=6){
+                    password.setError("Password length should be greater then 6 characters");
+                }
+                mDialog.setMessage("Registering your account...");
                 mDialog.show();
-                mAuth.signInWithEmailAndPassword(emailTxt,passTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(emailTxt,passTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
                             mDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                            finish();
+
                         }else{
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"unsuccessful",Toast.LENGTH_LONG).show();
@@ -85,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
+                finish();
             }
         });
     }
