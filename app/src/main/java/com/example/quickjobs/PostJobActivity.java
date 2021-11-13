@@ -1,18 +1,18 @@
 package com.example.quickjobs;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +42,7 @@ public class PostJobActivity extends AppCompatActivity {
     private DatabaseReference usersDb;
     private DatabaseReference jobPostsDb;
     private ProgressBar progressBar;
+    private TextView notFound;
 
     List<JobDetails> jobDetailsList = new ArrayList<JobDetails>();
 
@@ -51,6 +52,7 @@ public class PostJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_job);
         addBtn = findViewById(R.id.fab_add);//FAB
         progressBar = findViewById(R.id.your_jobs_progressbar);
+        notFound = findViewById(R.id.no_post);
 
         //Toolbar
         toolbar = findViewById(R.id.toolbar_post_job);
@@ -96,6 +98,11 @@ public class PostJobActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() == null) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    notFound.setVisibility(View.GONE);
+                }
                 snapshot.getChildren().forEach(new Consumer<DataSnapshot>() {
                     @Override
                     public void accept(DataSnapshot dataSnapshot) {

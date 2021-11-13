@@ -1,12 +1,12 @@
 package com.example.quickjobs;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,17 +24,20 @@ public class AllJobsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView allJobsRecycler;
+    private TextView notFound;
 
     //Firebase
     private DatabaseReference allJobs;
     private ProgressBar progressBar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_jobs);
-        toolbar=findViewById(R.id.view_jobs_toolbar);
-        progressBar=findViewById(R.id.all_jobs_progressbar);
+        toolbar = findViewById(R.id.view_jobs_toolbar);
+        progressBar = findViewById(R.id.all_jobs_progressbar);
+        notFound = findViewById(R.id.no_posts_available);
 
         //Toolbar
         setSupportActionBar(toolbar);
@@ -51,6 +54,10 @@ public class AllJobsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 progressBar.setVisibility(View.GONE);
+                if (snapshot.getValue() != null) {
+                    notFound.setVisibility(View.GONE);
+                }
+
             }
 
             @Override
@@ -74,7 +81,7 @@ public class AllJobsActivity extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<JobDetails, CustomViewHolder> adapter = new FirebaseRecyclerAdapter<JobDetails, CustomViewHolder>(
                 JobDetails.class,
-                R.layout.job_post_item,
+                R.layout.all_job_post_item,
                 CustomViewHolder.class,
                 allJobs
         ) {

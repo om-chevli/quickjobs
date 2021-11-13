@@ -5,151 +5,166 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".AddJobActivity">
+    tools:context=".EditJobActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar_fab_add_job"/>
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar_edit_job" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_margin="20dp"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/job_title"
                         android:textColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
+
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/job_title"
+                        android:id="@+id/job_title_edit"
                         android:textColor="@color/black"
                         android:shadowColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/job_description"
                         android:padding="7dp"
                         android:textColor="@color/black"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
+
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/job_desc"
+                        android:id="@+id/job_desc_edit"
                         android:textColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/skill"
                         android:textColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
+
                     <EditText
                         android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/job_skill"
+                        android:id="@+id/job_skill_edit"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/salary"
                         android:textColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
+
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/job_salary"
+                        android:id="@+id/job_salary_edit"
                         android:textColor="@color/black"
                         android:padding="7dp"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RelativeLayout>
             </LinearLayout>
 
             <Button
-                android:id="@+id/jobPostBtn"
+                android:id="@+id/updateJobPostBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_margin="20dp"
-                android:text="Post Job"
+                android:text="@string/update_job_post"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textAppearance="?android:textAppearanceMedium"

@@ -1,15 +1,20 @@
 package com.example.quickjobs;
 
 import android.content.Context;
-import android.os.health.ProcessHealthStats;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -19,6 +24,9 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
 
     private List<JobDetails> jobDetailsList;
     private Context context;
+    private DatabaseReference jobPostsDb;
+    private DatabaseReference usersDb;
+    private FirebaseAuth mAuth;
 
     public YourJobsAdapter(List<JobDetails> jobDetailsList, Context context) {
         this.jobDetailsList = jobDetailsList;
@@ -28,8 +36,8 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_post_item,parent,false);
-       return new ViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.your_job_post_item, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -39,6 +47,33 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
         holder.job_desc.setText(listItem.getDescription());
         holder.job_skill.setText(listItem.getSkills());
         holder.job_salary.setText(listItem.getSalary());
+        holder.job_date.setText(listItem.getDate());
+        holder.edit_job.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditJobActivity.class);
+                intent.putExtra("name", listItem.getTitle());
+                intent.putExtra("desc", listItem.getDescription());
+                intent.putExtra("skills", listItem.getSkills());
+                intent.putExtra("salary", listItem.getSalary());
+                intent.putExtra("jobId", listItem.getId());
+                context.startActivity(intent);
+            }
+        });
+        holder.delete_job.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser mUser = mAuth.getCurrentUser();
+                assert mUser != null;
+                String uID = mUser.getUid();
+                String jobId = listItem.getId();
+                jobPostsDb = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Job Posts");
+                usersDb = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Users");
+                jobPostsDb.child(jobId).removeValue();
+                usersDb.child(uID).child(jobId).removeValue();
+            }
+        });
     }
 
     @Override
@@ -46,19 +81,25 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
         return jobDetailsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView job_title;
         public TextView job_desc;
         public TextView job_skill;
         public TextView job_salary;
+        public TextView job_date;
+        public Button edit_job;
+        public Button delete_job;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             job_title = itemView.findViewById(R.id.job_title_display);
             job_desc = itemView.findViewById(R.id.job_desc_display);
             job_skill = itemView.findViewById(R.id.job_skill_display);
             job_salary = itemView.findViewById(R.id.job_salary_display);
+            job_date = itemView.findViewById(R.id.job_post_date);
+            edit_job = itemView.findViewById(R.id.edit_job_btn);
+            delete_job = itemView.findViewById(R.id.delete_job_btn);
         }
     }
 }

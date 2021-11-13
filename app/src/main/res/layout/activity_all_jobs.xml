@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +7,9 @@
     android:background="@color/white"
     tools:context=".AllJobsActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/view_jobs_toolbar"/>
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/view_jobs_toolbar" />
 
     <ProgressBar
         android:id="@+id/all_jobs_progressbar"
@@ -16,11 +17,20 @@
         android:layout_gravity="center"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/no_posts_available"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No Job Post Available as of Now!"
+        android:textAppearance="?android:textAppearanceMedium" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/all_jobs_recycler"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 
 </LinearLayout>

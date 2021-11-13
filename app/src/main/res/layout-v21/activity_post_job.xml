@@ -8,13 +8,16 @@
     android:orientation="vertical"
     tools:context=".PostJobActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar_post_job"/>
+    <include
+        android:id="@+id/toolbar_post_job"
+        layout="@layout/toolbar" />
 
     <ProgressBar
+        android:id="@+id/your_jobs_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:id="@+id/your_jobs_progressbar"/>
+        android:layout_gravity="center" />
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -25,9 +28,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <TextView
+                android:id="@+id/no_post"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="No Posts Found. Please Post A Job!"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/job_post_id_recycler"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -35,18 +46,17 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="25dp"
             android:layout_marginEnd="25dp"
-            app:fabSize="normal"
-            android:src="@drawable/add"
-            android:contentDescription="add"
+            android:layout_marginBottom="25dp"
             android:backgroundTint="@color/fabColor"
-            android:id="@+id/fab_add"
-            />
-
+            android:contentDescription="add"
+            android:src="@drawable/add"
+            app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </LinearLayout>

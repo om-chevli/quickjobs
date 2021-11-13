@@ -17,4 +17,8 @@
     <string name="salary">Salary</string>
     <string name="db_url">https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="log_out_txt">Log Out</string>
+    <string name="apply">Apply</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="update_job_post">Update Job Post</string>
 </resources>
