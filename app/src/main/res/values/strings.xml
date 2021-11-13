@@ -16,4 +16,5 @@
     <string name="skill">Skill</string>
     <string name="salary">Salary</string>
     <string name="db_url">https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="log_out_txt">Log Out</string>
 </resources>
