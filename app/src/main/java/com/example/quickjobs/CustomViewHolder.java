@@ -38,6 +38,5 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView jSalary = myView.findViewById(R.id.job_salary_display);
         jSalary.setText(salary);
     }
-
 }
 

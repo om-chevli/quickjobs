@@ -1,9 +1,11 @@
 package com.example.quickjobs;
 
 import android.content.Context;
+import android.os.health.ProcessHealthStats;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +15,12 @@ import java.util.List;
 
 import Models.JobDetails;
 
-public class YourJobAdapter extends RecyclerView.Adapter<YourJobAdapter.ViewHolder> {
+public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHolder> {
 
     private List<JobDetails> jobDetailsList;
     private Context context;
 
-    public YourJobAdapter(List<JobDetails> jobDetailsList, Context context) {
+    public YourJobsAdapter(List<JobDetails> jobDetailsList, Context context) {
         this.jobDetailsList = jobDetailsList;
         this.context = context;
     }
@@ -31,7 +33,7 @@ public class YourJobAdapter extends RecyclerView.Adapter<YourJobAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull YourJobAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull YourJobsAdapter.ViewHolder holder, int position) {
         JobDetails listItem = jobDetailsList.get(position);
         holder.job_title.setText(listItem.getTitle());
         holder.job_desc.setText(listItem.getDescription());

@@ -10,6 +10,12 @@
 
     <include layout="@layout/toolbar" android:id="@+id/toolbar_post_job"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:id="@+id/your_jobs_progressbar"/>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

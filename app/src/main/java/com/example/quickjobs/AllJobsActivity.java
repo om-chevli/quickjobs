@@ -1,19 +1,22 @@
 package com.example.quickjobs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import Models.JobDetails;
 
@@ -24,18 +27,37 @@ public class AllJobsActivity extends AppCompatActivity {
 
     //Firebase
     private DatabaseReference allJobs;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_jobs);
+        setContentView(R.layout.activity_all_jobs);
+        toolbar=findViewById(R.id.view_jobs_toolbar);
+        progressBar=findViewById(R.id.all_jobs_progressbar);
+
+        //Toolbar
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("All Jobs");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //DB
         allJobs = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Posts");
         allJobs.keepSynced(true);
+
+        allJobs.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Recycler View
         allJobsRecycler = findViewById(R.id.all_jobs_recycler);
@@ -44,7 +66,6 @@ public class AllJobsActivity extends AppCompatActivity {
         layoutManager.setReverseLayout(true);
         allJobsRecycler.setHasFixedSize(true);
         allJobsRecycler.setLayoutManager(layoutManager);
-
     }
 
     @Override
@@ -66,43 +87,6 @@ public class AllJobsActivity extends AppCompatActivity {
                 viewHolder.setJobSalary(model.getSalary());
             }
         };
-
         allJobsRecycler.setAdapter(adapter);
-    }
-
-    public static class CustomViewHolder extends RecyclerView.ViewHolder {
-
-        View myView;
-
-        public CustomViewHolder(View itemView) {
-            super(itemView);
-            myView = itemView;
-        }
-
-        public void setJobTitle(String title) {
-            TextView jTitle = myView.findViewById(R.id.job_title_display);
-            jTitle.setText(title);
-        }
-
-        public void setJobDate(String date) {
-            TextView jDate = myView.findViewById(R.id.job_post_date);
-            jDate.setText(date);
-        }
-
-        public void setJobDesc(String desc) {
-            TextView jDesc = myView.findViewById(R.id.job_desc_display);
-            jDesc.setText(desc);
-        }
-
-        public void setJobSkills(String skills) {
-            TextView jSkills = myView.findViewById(R.id.job_skill_display);
-            jSkills.setText(skills);
-        }
-
-        public void setJobSalary(String salary) {
-            TextView jSalary = myView.findViewById(R.id.job_salary_display);
-            jSalary.setText(salary);
-        }
-
     }
 }

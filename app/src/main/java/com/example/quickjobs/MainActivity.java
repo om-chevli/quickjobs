@@ -55,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 String passTxt = password.getText().toString().trim();
                 if(TextUtils.isEmpty(emailTxt)){
                     email.setError("Required Field!");
+                    return;
                 }
                 if(TextUtils.isEmpty(passTxt)){
                     password.setError("Required Field!");
+                    return;
                 }
                 if(!Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()){
                     email.setError("Invalid Email!");
+                    return;
                 }
 
                 mDialog.setMessage("Logging You In...");
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
                             mDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                            finish();
                         }else{
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"unsuccessful",Toast.LENGTH_LONG).show();

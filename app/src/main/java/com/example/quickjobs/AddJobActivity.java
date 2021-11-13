@@ -45,13 +45,16 @@ public class AddJobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fab_add_job);
+        setContentView(R.layout.activity_add_job);
         toolbar=findViewById(R.id.toolbar_fab_add_job);
 
         //ToolBar/Appbar Settings
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Post A Job");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Firebase
         mAuth= FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser(); //get current user

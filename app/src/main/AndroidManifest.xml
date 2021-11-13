@@ -10,11 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
-        <activity android:name=".AddJobActivity"/>
-        <activity android:name=".AllJobsActivity" />
-        <activity android:name=".PostJobActivity" />
+        <activity android:name=".AddJobActivity"
+            android:parentActivityName=".PostJobActivity"/>
+        <activity android:name=".AllJobsActivity"
+            android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".PostJobActivity"
+            android:parentActivityName=".HomeActivity"/>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".RegistrationActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

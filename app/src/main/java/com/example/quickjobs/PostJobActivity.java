@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -40,6 +41,7 @@ public class PostJobActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference usersDb;
     private DatabaseReference jobPostsDb;
+    private ProgressBar progressBar;
 
     List<JobDetails> jobDetailsList = new ArrayList<JobDetails>();
 
@@ -47,12 +49,16 @@ public class PostJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_job);
-        addBtn = findViewById(R.id.fab_add);
+        addBtn = findViewById(R.id.fab_add);//FAB
+        progressBar = findViewById(R.id.your_jobs_progressbar);
 
+        //Toolbar
         toolbar = findViewById(R.id.toolbar_post_job);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Your Jobs");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
@@ -62,7 +68,7 @@ public class PostJobActivity extends AppCompatActivity {
         jobPostsDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Job Posts");
         usersDb = FirebaseDatabase.getInstance(getString(R.string.db_url)).getReference().child("Users").child(uId);
 
-        adapter = new YourJobAdapter(jobDetailsList, this);
+        adapter = new YourJobsAdapter(jobDetailsList, this);
 
         jobIdRecycler = findViewById(R.id.job_post_id_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -103,6 +109,7 @@ public class PostJobActivity extends AppCompatActivity {
                                 JobDetails jobDetails = new Gson().fromJson(json, JobDetails.class);
                                 jobDetailsList.add(jobDetails);
                                 adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             @Override
