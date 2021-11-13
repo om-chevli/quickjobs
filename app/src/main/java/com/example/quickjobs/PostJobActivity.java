@@ -1,5 +1,6 @@
 package com.example.quickjobs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class PostJobActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView notFound;
 
+
     List<JobDetails> jobDetailsList = new ArrayList<JobDetails>();
 
     @Override
@@ -53,6 +55,7 @@ public class PostJobActivity extends AppCompatActivity {
         addBtn = findViewById(R.id.fab_add);//FAB
         progressBar = findViewById(R.id.your_jobs_progressbar);
         notFound = findViewById(R.id.no_post);
+
 
         //Toolbar
         toolbar = findViewById(R.id.toolbar_post_job);
@@ -111,7 +114,7 @@ public class PostJobActivity extends AppCompatActivity {
                         assert id != null;
                         jobPostsDb.child(id).addValueEventListener(new ValueEventListener() {
                             @Override
-                            synchronized public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String json = new Gson().toJson(snapshot.getValue());
                                 JobDetails jobDetails = new Gson().fromJson(json, JobDetails.class);
                                 jobDetailsList.add(jobDetails);
@@ -133,5 +136,11 @@ public class PostJobActivity extends AppCompatActivity {
                 System.out.println("Canceled");
             }
         });
+    }
+
+    public static Activity fa;
+
+    void onCreate() {
+        fa = this;
     }
 }

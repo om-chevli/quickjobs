@@ -27,4 +27,5 @@
     <string name="reset_desc">You\'ll receive a reset link on your email</string>
     <string name="resent_now">Reset Now!</string>
     <string name="toast_reset_success">Reset Link Sent Successfully!</string>
+    <string name="delete_confirmation">Are you Sure you want to delete?</string>
 </resources>

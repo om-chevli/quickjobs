@@ -12,9 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -64,15 +62,7 @@ public class YourJobsAdapter extends RecyclerView.Adapter<YourJobsAdapter.ViewHo
         holder.delete_job.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser mUser = mAuth.getCurrentUser();
-                assert mUser != null;
-                String uID = mUser.getUid();
-                String jobId = listItem.getId();
-                jobPostsDb = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Job Posts");
-                usersDb = FirebaseDatabase.getInstance("https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Users");
-                jobPostsDb.child(jobId).removeValue();
-                usersDb.child(uID).child(jobId).removeValue();
+                view.getContext().startActivity(new Intent(context, DeleteJobActivity.class).putExtra("jobId", listItem.getId()));
             }
         });
     }

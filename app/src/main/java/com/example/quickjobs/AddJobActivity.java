@@ -1,6 +1,5 @@
 package com.example.quickjobs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -109,7 +108,7 @@ public class AddJobActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), PostJobActivity.class));
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_LONG).show();
                         }
