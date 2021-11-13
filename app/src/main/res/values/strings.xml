@@ -17,4 +17,15 @@
     <string name="salary">Salary</string>
     <string name="db_url">https://quick-jobs-android-native-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="log_out_txt">Log Out</string>
+    <string name="apply">Apply</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="update_job_post">Update Job Post</string>
+    <string name="email_body">I want to Apply for this role.\n Below I have attached my resume.</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_desc">You\'ll receive a reset link on your email</string>
+    <string name="resent_now">Reset Now!</string>
+    <string name="toast_reset_success">Reset Link Sent Successfully!</string>
+    <string name="delete_confirmation">Are you Sure you want to delete?</string>
 </resources>

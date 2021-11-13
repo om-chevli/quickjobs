@@ -1,6 +1,7 @@
 package com.example.quickjobs;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CustomViewHolder extends RecyclerView.ViewHolder {
 
     View myView;
+    public Button apply_job;
 
     public CustomViewHolder(View itemView) {
         super(itemView);
         myView = itemView;
+        apply_job = itemView.findViewById(R.id.applyJobBtn);
     }
 
     public void setJobTitle(String title) {

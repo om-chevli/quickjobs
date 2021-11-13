@@ -1,5 +1,10 @@
 package Models;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class JobDetails {
     String title;
     String description;
@@ -7,17 +12,27 @@ public class JobDetails {
     String salary;
     String id;
     String date;
+    String email;
 
     public JobDetails() {
     }
 
-    public JobDetails(String title, String description, String skills, String salary, String id, String date) {
+    public JobDetails(String title, String description, String skills, String salary, String id, String date, String email) {
         this.title = title;
         this.description = description;
         this.skills = skills;
         this.salary = salary;
         this.id = id;
         this.date = date;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTitle() {
@@ -66,5 +81,18 @@ public class JobDetails {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("description", description);
+        result.put("skills", skills);
+        result.put("salary", salary);
+        result.put("id", id);
+        result.put("date", date);
+        result.put("email", email);
+        return result;
     }
 }

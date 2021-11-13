@@ -8,17 +8,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        >
-        <activity android:name=".AddJobActivity"
-            android:parentActivityName=".PostJobActivity"/>
-        <activity android:name=".AllJobsActivity"
-            android:parentActivityName=".HomeActivity"/>
-        <activity android:name=".PostJobActivity"
-            android:parentActivityName=".HomeActivity"/>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".DeleteJobActivity"
+            android:parentActivityName=".PostJobActivity" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditJobActivity"
+            android:parentActivityName=".PostJobActivity" />
+        <activity
+            android:name=".AddJobActivity"
+            android:parentActivityName=".PostJobActivity" />
+        <activity
+            android:name=".AllJobsActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".PostJobActivity"
+            android:parentActivityName=".HomeActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RegistrationActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".RegistrationActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

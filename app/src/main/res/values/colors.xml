@@ -11,4 +11,5 @@
     <color name="loginTxtColor">#000C51</color>
     <color name="fabColor">#7486EA</color>
     <color name="lightGrey">#797A81</color>
+    <color name="red">#FF0000</color>
 </resources>
