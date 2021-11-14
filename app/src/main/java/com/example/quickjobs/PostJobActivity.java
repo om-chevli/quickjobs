@@ -1,6 +1,5 @@
 package com.example.quickjobs;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -136,11 +135,5 @@ public class PostJobActivity extends AppCompatActivity {
                 System.out.println("Canceled");
             }
         });
-    }
-
-    public static Activity fa;
-
-    void onCreate() {
-        fa = this;
     }
 }
